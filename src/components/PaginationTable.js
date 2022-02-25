@@ -23,6 +23,7 @@ export const PaginationTable = () => {
         pageCount,
         pageOptions,
         state,
+        setPageSize,
         prepareRow, 
     } = useTable({
         columns,
@@ -32,7 +33,7 @@ export const PaginationTable = () => {
     usePagination
     )
 
-    const { pageIndex } = state
+    const { pageIndex, pageSize } = state
 
     return (
         <>
@@ -74,6 +75,15 @@ export const PaginationTable = () => {
                     gotoPage(pageNumber)
                 }} style={{width: '50px'}}/>
             </span>
+            <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                {
+                    [10, 25, 50].map(pageSize => (
+                        <option key={pageSize} value={pageSize}>
+                            Show {pageSize}
+                        </option>
+                    ))
+                }
+            </select>
             <br/>
             <span>
                 page{' '}
