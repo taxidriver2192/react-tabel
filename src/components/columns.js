@@ -6,38 +6,33 @@ export const COLUMNS = [
         Header: 'Id',
         Footer: 'Id',
         accessor: 'id',
-        Filter: ColumFilter
+        disableFilters: true,
     },
     {
         Header: 'First Name',
         Footer: 'First Name',
         accessor: 'first_name',
-        Filter: ColumFilter
     },
     {
         Header: 'Last Name',
         Footer: 'Last Name',
         accessor: 'last_name',
-        Filter: ColumFilter
     },
     {
         Header: 'Date of Birth',
         Footer: 'Date of Birth',
         accessor: 'Date_of_Birth',
         Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')},
-        Filter: ColumFilter
     },
     {
         Header: 'Country',
         Footer: 'Country',
         accessor: 'Country',
-        Filter: ColumFilter
     },
     {
         Header: 'Phone',
         Footer: 'Phone',
         accessor: 'Phone',
-        Filter: ColumFilter
     },
 ]
 export const GRUPED_CCOLUMNS = [
