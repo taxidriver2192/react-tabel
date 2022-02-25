@@ -7,6 +7,8 @@ import './Table.css'
 export const BasicTable = () => {
 
     const columns = useMemo(() => GRUPED_CCOLUMNS, []);
+    // const columns = useMemo(() => COLUMNS, []);
+
     const data = useMemo(() => MOCK_DATA, [])
 
     const tableInstance = useTable({

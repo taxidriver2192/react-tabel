@@ -1,26 +1,34 @@
 import React, {useMemo} from 'react'
-import {useTable, useSortBy} from 'react-table'
+import {useTable, useGlobalFilter} from 'react-table'
 import MOCK_DATA from './MOCK_DATA.json'
-import { COLUMNS, GRUPED_CCOLUMNS} from "./columns"
+import { COLUMNS} from "./columns"
 import './Table.css'
+import { GlobalFilter } from './GlobalFilter'
 
-export const SortingTable = () => {
+export const FilteringTable = () => {
 
-    const columns = useMemo(() => GRUPED_CCOLUMNS, []);
-    // const columns = useMemo(() => COLUMNS, []);
-
+    const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => MOCK_DATA, [])
 
-    const tableInstance = useTable({
+    const { 
+        getTableProps, 
+        getTableBodyProps, 
+        headerGroups, 
+        footerGroups, 
+        rows, 
+        prepareRow, 
+        state, 
+        setGlobalFilter
+    } = useTable({
         columns,
         data
-    }, 
-    useSortBy
-    )
+    },useGlobalFilter)
 
-    const { getTableProps, getTableBodyProps, headerGroups, footerGroups, rows, prepareRow,} = tableInstance
+    const { globalFilter } = state
 
     return (
+        <>
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <table {...getTableProps()}>
             <thead>
                 {
@@ -28,11 +36,7 @@ export const SortingTable = () => {
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {
                             headerGroup.headers.map((column) => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
-                                    <span>
-                                    { column.isSorted ? (column.isSortedDesc ? ` >` : ` <`) : ''}
-                                    </span>
-                                </th>
+                                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                             ))
                         }
                     </tr>
@@ -72,5 +76,6 @@ export const SortingTable = () => {
                 }
             </tfoot>
         </table>
+        </>
     )
 }
